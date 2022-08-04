@@ -11,17 +11,8 @@ namespace API.Entities
         public string Content { get; set; }
         public string Author { get; set; }
         public string Genre { get; set; }
-        public ICollection<Rating> Ratings { get; set; }
-        public ICollection<Review> Reviews { get; set; }
-
-        // public decimal GetRating()
-        // {
-        //     return Ratings.Average(x => x.Score);
-        // }
-        //
-        // public int GetReviewsNumber()
-        // {
-        //     return Reviews.Count;
-        // }
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        
     } 
 }
