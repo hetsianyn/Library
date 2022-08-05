@@ -11,6 +11,7 @@ namespace API
         Task<IEnumerable<BookDto>> GetBooksOrdered(string orderParameter);
         Task<IEnumerable<BookDto>> GetTopByGenre(string genre);
         Task<BookDetailedDto> GetBookDetails(int id);
-
+        Task DeleteBook(int id, string secret);
+        Task<int> SaveBook(BookCreationDto bookCreationDto);
     }
 }

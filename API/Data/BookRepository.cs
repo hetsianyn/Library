@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Data
 {
@@ -12,11 +15,13 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
 
-        public BookRepository(DataContext context, IMapper mapper)
+        public BookRepository(DataContext context, IMapper mapper, IConfiguration config)
         {
             _context = context;
             _mapper = mapper;
+            _config = config;
         }
 
         public async Task<IEnumerable<BookDto>> GetBooksOrdered(string orderParameter)
@@ -30,13 +35,9 @@ namespace API.Data
             if (!string.IsNullOrEmpty(orderParameter))
             {
                 if (orderParameter == "title")
-                {
                     books = books.OrderBy(b => b.Title);
-                }
                 if (orderParameter == "author")
-                {
                     books = books.OrderBy(b => b.Author);
-                }
             }
 
             await books.ToListAsync();
@@ -63,6 +64,37 @@ namespace API.Data
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             return _mapper.Map<BookDetailedDto>(books);
+        }
+
+        public async Task DeleteBook(int id, string secret)
+        {
+            if (secret != _config["Key:secret"])
+                throw new ArgumentException("Invalid secret key");
+            var book = await _context.Book
+                .FirstOrDefaultAsync(b => b.Id == id);
+            if(book == null)
+                throw new NotFoundException(nameof(Book), id);
+            
+            _context.Book.Remove(book);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveBook(BookCreationDto bookDto)
+        {
+            var book = await _context.Book
+                .FirstOrDefaultAsync(b => b.Id == bookDto.Id);
+            var isExist = book != null;
+            
+            if (!isExist)
+            {
+                var newBook = _mapper.Map<Book>(bookDto);
+                await _context.Book.AddAsync(newBook);
+
+                return newBook.Id;
+            }
+
+            _mapper.Map(bookDto, book);
+            return bookDto.Id;
         }
     }
 }

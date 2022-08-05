@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTOs;
-using API.Entities;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +13,14 @@ namespace API.Controllers
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BooksController(IBookRepository bookRepository, IMapper mapper)
+        public BooksController(IBookRepository bookRepository, IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         
         [HttpGet("books")]
@@ -43,7 +44,20 @@ namespace API.Controllers
             var books = await _bookRepository.GetBookDetails(id);
             return Ok(books);
         }
+        
+        [HttpDelete("books/{id}")]
+        public async Task<ActionResult> DeleteBook(int id, string secret)
+        {
+            await _bookRepository.DeleteBook(id, secret);
+            return NoContent();
+        }
 
-
+        [HttpPost("books/save")]
+        public async Task<ActionResult> SaveBook([FromForm] BookCreationDto bookDto)
+        {
+            var bookId = await _bookRepository.SaveBook(bookDto);
+            await _unitOfWork.Complete();
+            return StatusCode(201, bookId);
+        }
     }
 }
