@@ -13,5 +13,7 @@ namespace API
         Task<BookDetailedDto> GetBookDetails(int id);
         Task DeleteBook(int id, string secret);
         Task<int> SaveBook(BookCreationDto bookCreationDto);
+        Task<int> SaveReview(int bookId, ReviewDto reviewDto);
+        Task<int> RateBook(int bookId, RatingDto ratingDto);
     }
 }

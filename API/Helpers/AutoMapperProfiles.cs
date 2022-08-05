@@ -13,7 +13,6 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             
-            CreateMap<Rating, RatingDto>();
             CreateMap<Review, ReviewDto>();
             CreateMap<Book, BookDto>()
                 .ForMember(book => book.Rating, opt => opt.MapFrom(book =>
@@ -26,6 +25,8 @@ namespace API.Helpers
             CreateMap<BookCreationDto, Book>()
                 .ForMember(book => book.Cover, opt => opt.MapFrom(book =>
                     book.Cover.ConvertToBase64()));
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Rating, RatingDto>().ReverseMap();
         }
     }
 }

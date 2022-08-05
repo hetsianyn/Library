@@ -27,6 +27,7 @@ namespace API.Controllers
         public async Task<ActionResult> GetBooksOrdered(string order)
         {
             var books = await _bookRepository.GetBooksOrdered(order);
+            
             return Ok(books);
         }
         
@@ -35,6 +36,7 @@ namespace API.Controllers
         {
             var books = await _bookRepository.GetTopByGenre(genre);
             books = books.OrderByDescending(x => x.Rating).Take(5);
+            
             return Ok(books);
         }
         
@@ -42,6 +44,7 @@ namespace API.Controllers
         public async Task<ActionResult> GetBookDetails(int id)
         {
             var books = await _bookRepository.GetBookDetails(id);
+            
             return Ok(books);
         }
         
@@ -49,6 +52,7 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteBook(int id, string secret)
         {
             await _bookRepository.DeleteBook(id, secret);
+            
             return NoContent();
         }
 
@@ -57,7 +61,28 @@ namespace API.Controllers
         {
             var bookId = await _bookRepository.SaveBook(bookDto);
             await _unitOfWork.Complete();
+            
             return StatusCode(201, bookId);
+        }
+        
+        [HttpPut("books/{id}/review")]
+        public async Task<ActionResult> SaveReview(int id,
+            [FromForm] ReviewDto reviewDto)
+        {
+            var response = await _bookRepository.SaveReview(id, reviewDto);
+            await _unitOfWork.Complete();
+            
+            return StatusCode(201, response);
+        }
+        
+        [HttpPut("books/{id}/rate")]
+        public async Task<ActionResult> SaveReview(int id,
+            [FromForm] RatingDto ratingDto)
+        {
+            var response = await _bookRepository.RateBook(id, ratingDto);
+            await _unitOfWork.Complete();
+            
+            return StatusCode(201, response);
         }
     }
 }
