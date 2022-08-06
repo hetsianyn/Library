@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
+﻿
 namespace API.Errors
 {
     public class ApiException

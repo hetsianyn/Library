@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
+﻿using System.Linq;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
