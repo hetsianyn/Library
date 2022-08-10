@@ -9,6 +9,11 @@ import { BookListComponent } from './components/book-list/book-list.component';
 import { BookListItemComponent } from './components/book-list-item/book-list-item.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import { ViewBookComponent } from './components/view-book/view-book.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatTabsModule} from '@angular/material/tabs';
+import { FormsModule } from '@angular/forms';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,11 @@ import { ViewBookComponent } from './components/view-book/view-book.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    FormsModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,10 @@
-<p>edit-book works!</p>
+
+<div class="book-row" *ngFor="let book of books">
+  <div class="book-row-details">
+    <span>{{ book.title }}</span>
+    <span>{{ book.author }}</span>
+    <span>{{ book.rating }}</span>
+    <span>{{ book.reviewsNumber }}</span>
+  </div>
+  <div class="book-row-action"></div>
+</div>

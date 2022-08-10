@@ -1,5 +1,49 @@
 <h1>{{title}}</h1>
+<div class="container">
 
-<ul>
-  <li *ngFor='let book of books' >{{book.id}} - {{book.title}} === {{book.author}}</li>
-</ul>
+  <router-outlet></router-outlet>
+  <router-outlet name="secondary"></router-outlet>
+
+  <div class="dls-menu-item">
+    <button (click)="onPress()">On Press Button</button>
+  </div>
+  <div id="comp-render" *ngIf="display">
+    <app-view-book></app-view-book>
+  </div>
+<!--  <app-books-page [book]=""></app-books-page>-->
+  <!--  <div class="books-container">-->
+<!--    <div class="books-form">-->
+<!--      <form>-->
+<!--        <div class="form-group">-->
+<!--          <label for="">Book Title</label>-->
+<!--          <input type="text" name="bookTitle">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label for="">Book Author</label>-->
+<!--          <input type="text" name="bookAuthor">-->
+<!--        </div>-->
+<!--        <div class="form-group form-group-inline">-->
+<!--          <div>-->
+<!--            <label for="">Book Rating</label>-->
+<!--            <input type="text" name="bookRating">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label for="">Review Number</label>-->
+<!--            <input type="text" name="bookReviewNumber">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--    <div class="book-grid">-->
+<!--      <div class="book-row" *ngFor="let book of books">-->
+<!--        <div class="book-row-details">-->
+<!--          <span>{{ book.title }}</span>-->
+<!--          <span>{{ book.author }}</span>-->
+<!--          <span>{{ book.rating }}</span>-->
+<!--          <span>{{ book.reviewsNumber }}</span>-->
+<!--        </div>-->
+<!--        <div class="book-row-action"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>

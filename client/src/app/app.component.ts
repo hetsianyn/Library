@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Book } from './models/book';
+import { BookService } from './services/book.service';
 
 @Component({
   selector: 'app-root',
@@ -8,22 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'Web Library';
-  books: any;
+  books: Book[] = [];
 
-  constructor(private http: HttpClient) { }
+  display = false;
+
+
+  constructor(private bookService: BookService) { }
 
   ngOnInit() {
-    this.getBooks();
+    this.getAllBooks();
   }
 
-  getBooks(){
-    this.http.get('https://localhost:5000/api/books').subscribe(response => {
-      this.books = response;
-    }, error => {
-      console.log(error);
-    })
+  getAllBooks(){
+    this.bookService.getAllBooks()
+      .subscribe(
+        response => {
+          this.books = response;
+        }
+      );
   }
 
+  onPress() {
+    //this.display = true;
+
+    //To toggle the component
+    this.display = !this.display;
+  }
 }
 
 

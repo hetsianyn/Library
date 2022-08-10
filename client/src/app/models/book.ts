@@ -2,7 +2,7 @@
 
 
 export interface Book extends BookBase{
-  cover: string;
+  //cover: string;
   rating: number;
   reviewsNumber: number;
 }
