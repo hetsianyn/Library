@@ -13,7 +13,7 @@ import  { Overlay} from '@angular/cdk/overlay'
 export class ViewBookComponent implements OnInit {
 
     book: BookView = {
-      id: 0,
+      id: 1,
       title: '',
       author: '',
       genre: '',

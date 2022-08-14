@@ -57,7 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPost("books/save")]
-        public async Task<ActionResult> SaveBook([FromBody] BookCreationDto bookDto)
+        public async Task<ActionResult> SaveBook([FromForm] BookCreationDto bookDto)
         {
             var bookId = await _bookRepository.SaveBook(bookDto);
             await _unitOfWork.Complete();

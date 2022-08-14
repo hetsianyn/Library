@@ -13,6 +13,7 @@ namespace API.Helpers
             
             CreateMap<Review, ReviewDto>();
             CreateMap<Book, BookDto>()
+                .ForMember(book => book.Cover, opt => opt.MapFrom(book => book.Cover))
                 .ForMember(book => book.Rating, opt => opt.MapFrom(book =>
                     book.Ratings.Average(ratings => ratings.Score)))
                 .ForMember(book => book.ReviewsNumber, opt => opt.MapFrom(book =>

@@ -21,7 +21,7 @@ export class BooksPageComponent implements OnInit {
     title: '',
     author: '',
     genre: '',
-    cover: null,
+    cover: new File([""], "filename"),
     content: 'sasd'
   }
 

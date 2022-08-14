@@ -1,17 +1,20 @@
 <link rel="stylesheet" href="book-list.component.css">
+<div *ngIf="display">
+  <app-view-book></app-view-book>
+</div>
 <div class="container">
   <mat-tab-group>
     <mat-tab label= "All">
       <div class="list">
         <div class="list-group" *ngFor="let book of books">
           <div class="book">
-            <!--        <img src="" alt="" class="cover">-->
             <div class="title">{{book.title}}
               <div class="buttons">
                 <button (click)="onPressEdit()">edit</button>
                 <button (click)="onPressView()">view</button>
               </div>
             </div>
+            <img class="cover" src="data:image/jpeg;base64,{{book.cover}}" alt="Red dot">
             <div class="info">
               <div>Reviews: {{book.reviewsNumber}}</div>
               <div>Rating: {{book.rating.toFixed(2)}}</div>
@@ -41,6 +44,3 @@
   </mat-tab-group>
 </div>
 
-<div *ngIf="display">
-  <app-view-book></app-view-book>
-</div>

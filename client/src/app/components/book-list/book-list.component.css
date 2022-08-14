@@ -28,6 +28,7 @@
 }
 
 div .title{
+  font-size: 25px;
   position: relative;
 }
 
@@ -35,4 +36,9 @@ div .title{
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+}
+
+.cover {
+  width: 100px;
+  height: 100px;
 }

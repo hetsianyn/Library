@@ -2,7 +2,7 @@
 
 
 export interface BookDetailed extends BookBase{
-  cover: null,
+  cover: File,
   content: string,
   genre: string
 }
